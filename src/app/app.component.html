@@ -1,0 +1,99 @@
+<div class="container p-2 mt-2" id="rootcontainer">
+<div class="row p-2">
+  <div class="col-md-4">
+    <h1>Crud App con Angular 17.</h1>
+    <h4>Listado de Tareas</h4>
+  </div>
+  <div class="col-md-6">
+    <p class="fs-4">se debe ingresar los datos de la tarea a realizar <br>
+                    Esta se vera reflejada en el listado de tareas <br> 
+                    y se podran editar o eliminar. <br>
+    </p>
+  </div>
+</div>
+</div>
+<div class="container mt-3 p-2" id="infocontainer">
+  <div class="row">
+    <div class="col-md-4">
+      <!--formulario-->
+      <div class="card p-2 bg-info-subtle border border-0 shadow-sm" style="width: 20rem;">
+       <h4>Nueva Tarea.</h4>
+       <hr>
+       <div class="row mb-3">
+        <div class="col">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="nombre">
+        </div>
+       </div>
+       <div class="row mb-3">
+        <div class="col">
+          <label for="descripcion">Descripcion:</label>
+          <textarea name="descripcion" id="descripcion" class="form-control" rows="5" [(ngModel)]="descripcion"></textarea>
+        </div>
+       </div>
+       <div class="row mb-2">
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-primary btn-sm" type="button" (click)="Agregar()">Agregar Tarea</button>
+        </div>
+       </div>
+      </div>
+    </div>
+    <!--tabla-->
+    <div class="col" style="height:450px;">
+      <table class=" table table-striped p-2 table-info text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Op.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarea of Tareas , let i = index">
+            <td>{{i+1}}</td>
+            <td>{{tarea.nombre}}</td>
+            <td>{{tarea.descripcion}}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#Editartarea" (click)="Editar(i)">
+                Edit
+              </button>
+               | <button class="btn btn-sm btn-danger" (click)="Eliminar(i)">delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--Modal formulario para editar la tarea-->
+<div class="modal fade" id="Editartarea" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Tarea</h1>
+      </div>
+      <div class="modal-body">
+        <form action="#">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="nombreEditar">Nombre:</label>
+              <input type="text" class="form-control" name="nombreEditar" id="nombreEditar" [(ngModel)]="nombreEditar">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="descEditar"></label>
+              <textarea class="form-control" name="descEditar" id="descEditar" rows="5" [(ngModel)]="descEditar"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success btn-sm" (click)="Cambios()" data-bs-dismiss="modal">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
